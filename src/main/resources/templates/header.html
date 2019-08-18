@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:http="http://www.w3.org/1999/xhtml">
+    <!--menu start-->
+    <nav class="navbar navbar page-header-navbar navbar-light fixed-top navbar-expand-md" style="background: #ffffff" th:fragment="header">
+        <div class="container">
+            <button type="button" aria-label="Toggle navigation" aria-controls="nav-collapse" aria-expanded="false" class="navbar-toggler" data-v-3e7219cc>
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a href="#" class="navbar-brand nuxt-link-active"><img src="static/img/logo_index.svg" class="logo"></a>
+            <div id="nav-collapse" class="nav-collapse navbar-collapse collapse" style="display:none;">
+                <ul class="navbar-nav base-menu" th:each="menu:${menus}">
+                    <li class="nav-item relative"><a th:href="${menu.url}" class="nav-link relative inline-block" th:if="${menu.subMenus.size()} eq 0"><span th:text="${menu.name}"></span></a></li>
+                    <div class="dropdown btn-group b-dropdown base-menu-dropdown" th:if="${menu.subMenus.size()} gt 0">
+                        <button type="button" class="btn btn-secondary"><div>博客</div></button>
+                        <button aria-haspopup="true" aria-expanded="false" type="button" class="btn dropdown-toggle btn-secondary dropdown-toggle-split">
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-item" th:each="submenu:${menu.subMenus}">
+                                <a th:href="${submenu.url}" class="dropdown-item" target="_self" th:text="${submenu.name}"></a>
+                            </li>
+                        </ul>
+                    </div>
+                </ul>
+                <ul class="navbar-nav ml-auto base-menu base-menu-right">
+                    <a href="https://github.com/loveblog1314" target="_blank"><li class="nav-item" id="github">
+                        Github
+                    </li></a>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!--menu end-->
+    <!--banner start-->
+    <div class="banner" th:fragment="banner">
+        <ul class="banner_cont">
+            <p>永远成功的秘密，就是淘汰昨天的自己</p>
+            <li>所有文章可以任意转载甚至纳为己有~</li>
+            <li>不定期更新一些工作中的心得</li>
+        </ul>
+    </div>
+    <!--banner end-->
+</html>

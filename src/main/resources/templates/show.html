@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>itsure博客-内容页</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="description" content="">
+    <link rel="icon" type="image/x-icon" href="static/img/favicon.ico">
+    <link rel="stylesheet" href="static/css/font-awesome.min.css">
+    <script src="static/js/index.js"></script>
+    <script src="static/js/show.js"></script>
+    <script src="static/js/jquery-3.4.1.min.js"></script>
+    <link rel="stylesheet" href="static/css/bootstrap.css">
+    <link rel="stylesheet" href="static/css/index.css">
+    <style>
+        body{background: #f5f5f5}
+    </style>
+</head>
+<body>
+    <div>
+        <!--menu start-->
+        <div th:replace="header"></div>
+        <!--banner end-->  
+        <!--article title start-->
+        <div class="fixed-title">
+            <div class="title-container">
+                <div class="title-left" th:text="${article.title}"></div>
+                <div class="title-right">
+                   <div th:if="${article.referenceUrl}">  <a  th:href="${article.referenceUrl}" class="title-right-a">关联资料 </a></div>
+                   <div th:if="${article.codeUrl}"> <a th:href="${article.codeUrl}" class="title-right-a">获取代码 </a></div>
+                </div>
+            </div>
+        </div>
+        <!--article title end-->
+        <div class="article-container">
+            <div class="article-cont" th:utext="${article.content}"></div>
+            <div class="article-menu">
+                <ul>
+                    <li></li>
+                </ul>
+            </div>
+        </div>
+        <!--footer start-->
+        <div th:replace="footer"></div>
+        <!--footer end-->
+    </div>
+    <div class="robot"></div>
+</body>
+<!-- footer script-->
+<script>
+    var allHeight=document.body.scrollHeight;  //获取整个页面的高度 
+    var fixHeight=allHeight*0.2;   //获取整个页面高度的百分之二十
+        /*滚动事件 */
+    $(window).scroll(function() { 
+        if($(window).scrollTop()>=fixHeight){ //滚动条距离顶部大于某高度(整个页面的百分之二十)
+            $(".fixed-title").css("position","fixed"); //设置菜单栏的固定属性
+            $(".fixed-title").css("top",72); //设置菜单栏距离顶部的距离
+        }else{
+            $(".fixed-title").css("position",""); //清空菜单栏的固定属性
+        }
+    });
+
+    $(function(){
+        $(".robot").click(function(){
+            alert("我现在还是一个不会说话的机器人")
+        })
+    });
+</script>
+</html>

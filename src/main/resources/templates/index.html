@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>itsure博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="description" content="">
+    <link rel="icon" type="image/x-icon" href="static/img/favicon.ico">
+    <link rel="stylesheet" href="static/css/font-awesome.min.css">
+    <script src="static/js/index.js"></script>
+    <script src="static/js/jquery-3.4.1.min.js"></script>
+    <link rel="stylesheet" href="static/css/bootstrap.css">
+    <link rel="stylesheet" href="static/css/index.css">
+</head>
+<body>
+    <div>
+        <div th:replace="header"></div>
+        <!--article start-->
+        <div class="article_calendar_container">
+                <div class="head_module">
+                    <div class="article_type_container" >
+                        <a href="javascript:void(0)" th:each="menu,menuStat:${menus[1].subMenus}" th:if="${menuStat.index} eq 0" class="type_li type_active" th:text="${menu.name}" th:onclick="'showArticle('+${menu.id}+')'"></a>
+                        <a href="javascript:void(0)" th:each="menu,menuStat:${menus[1].subMenus}" th:if="${menuStat.index} gt 0" class="type_li" th:text="${menu.name}" th:onclick="'showArticle('+${menu.id}+')'"></a>
+                    </div>
+                    <div class="article_module" th:fragment="articlesdiv">
+                        <div class="article_date_container" id="articlesdiv"  th:each="article:${articles}">
+                            <div class="date_con">
+                                <p class="date_day" th:text="${#dates.format(article.updateTime, 'M月d')}"></p>
+                                <p class="date_week" th:text="${#dates.format(article.updateTime, 'yyyy')}"></p>
+                            </div> 
+                            <div class="article_con">
+                                <a th:href="@{'/show?id='+${article.id}}" target="_blank" class="article_list">
+                                    <span class="article_name">
+                                        <p th:text="${article.title}"></p>
+                                    </span> 
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        <!--article end-->
+        <!--introduction start-->
+        <div class="introduction">
+            <div class="introduction-container">
+                <div>
+                    <div class="avator"></div>
+                    <div class="intro-cont">
+                        <p>姓名：张晓 （花名：秦羽 | 网名：ITsure）</p>
+                        <p>在职：浙江核心同花顺有限公司</p>
+                        <p>高级JAVA工程师</p>
+                    </div>
+                </div>
+                <div class="intro-detail">
+                    27岁，男，硕士，2018年毕业于密西西比大学，从事大数据分析，JAVA后端开发，算法等工作。曾就职于京东金融、杭州智心网络科技，有社群电商，短视频，VOIP，供应链等丰富的经验。擅长架构设计和数据中间件，精通Java 和 PHP开发。
+                </div>
+            </div>
+        </div>
+        <!--introduction end-->
+        <!--selector start-->
+        <div class="jumbotron"><h2 class="text-center">筛选器 <span class="grey">/ Filter</span></h2></div>
+        <div id="post-single" class="post-33771 post type-post status-publish format-standard has-post-thumbnail hentry category-logos-design category-appreciation tag-logo tag-logo-design tag-trademark tag-270 tag-269 tag-129 tag-128">
+            <div class="container">
+                <div class="content tags-content">
+                    <a href="#" class="tag-cloud-link tag-link-position-1" >Brand</a>
+                    <a href="#" class="tag-cloud-link tag-link-position-2" >Branding</a>
+                    <a href="#" class="tag-cloud-link tag-link-position-3" >Business Card</a>
+                    <a href="#" class="tag-cloud-link tag-link-position-4" >Business Cards</a>
+                    <a href="#" class="tag-cloud-link tag-link-position-5" >Font</a>
+                    <a href="#" class="tag-cloud-link tag-link-position-6" >Font Design</a>
+                    <a href="#" class="tag-cloud-link tag-link-position-7" >illustration</a>
+                    <a href="#" class="tag-cloud-link tag-link-position-8" >LOGO</a>
+                    <a href="#" class="tag-cloud-link tag-link-position-9" >LOGO Design</a>
+                    <a href="#" class="tag-cloud-link tag-link-position-10" >Poster</a>
+                    <a href="#" class="tag-cloud-link tag-link-position-11" >Poster Design</a>
+                    <a href="#" class="tag-cloud-link tag-link-position-12" >VI</a>
+                    <a href="#" class="tag-cloud-link tag-link-position-13" >VIS</a>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+        <!--selector end-->
+        <!--web links-->
+        <div class="jumbotron"><h2 class="text-center"><span class="glyphicon glyphicon glyphicon-briefcase"></span> 网盟 <span class="grey">/ Links</span></h2></div>  
+            <div class="container">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-3 col-sm-6 thumb attachment-home-loop size-home-loop wp-post-image">
+                                <img width="300" height="135" src="static/img/aliyun.png" alt="阿里云" />
+                        </div>
+                        <div class="col-md-3 col-sm-6 thumb">
+                                <img width="300" height="135" src="static/img/antbank.png" alt="蚂蚁金服" />
+                        </div>
+                        <div class="col-md-3 col-sm-6 thumb">
+                                <img width="300" height="135" src="static/img/ths.png" alt="同花顺" />
+                        </div>
+                        <div class="col-md-3 col-sm-6 thumb">
+                                <img width="300" height="135" src="static/img/jdfinance.png" alt="京东金融" />
+                        </div>
+                        <div class="col-md-3 col-sm-6 thumb">
+                                <img width="300" height="135" src="static/img/zhongxin.png" alt="中信银行" />
+                        </div>
+                        <div class="col-md-3 col-sm-6 thumb">
+                                <img width="300" height="135" src="static/img/futureCity.png" alt="未来科技城" />
+                        </div>
+                        <div class="col-md-3 col-sm-6 thumb">
+                                <img width="300" height="135" src="static/img/youku.png" alt="优酷" />
+                        </div>
+                        <div class="col-md-3 col-sm-6 thumb">
+                                <img width="300" height="135" src="static/img/douyu.png" alt="斗鱼TV" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--web links end-->
+        <div th:replace="footer"></div>
+    </div>
+</body>
+<!-- footer script-->
+<script >
+    $(".type_li").click(function(event){
+        $(".type_li").removeClass('type_active');
+        $(this).addClass('type_active');
+    });
+</script>
+<script>
+    function showArticle(val){
+        $.ajax({
+             url : "/getArticle",
+             type : 'get',
+             data : {id:val},
+             success : function(result) {
+             if (result != null && result.length > 0) {
+                $('.article_module').empty();
+                $('.article_module').html(result);
+             }
+             else {
+                 alert("网站出现异常1");
+             }
+
+        },
+            error : function(errorMsg) {
+                //请求失败时执行该函数
+                console.log(errorMsg);
+            }
+        })
+    }
+
+</script>
+</html>

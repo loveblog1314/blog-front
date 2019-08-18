@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>itsure博客-列表页</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="description" content="">
+    <link rel="icon" type="image/x-icon" href="static/img/favicon.ico">
+    <link rel="stylesheet" href="static/css/font-awesome.min.css">
+    <script src="static/js/index.js"></script>
+    <script src="static/js/show.js"></script>
+    <script src="static/js/jquery-3.4.1.min.js"></script>
+    <link rel="stylesheet" href="static/css/bootstrap.css">
+    <link rel="stylesheet" href="static/css/index.css">
+    <style>
+        body{background: #f5f5f5}
+    </style>
+</head>
+<body>
+    <div>
+        <!--menu start-->
+        <div th:replace="header"></div>
+        <!--banner end-->
+        <div class="article-menu-wapper" th:each="menu:${menus}" th:if="${menu.subMenus.size() gt 0}">
+            <div class="article-menu-container">
+                <a href="javascript:void(0)"><li th:each="submenu:${menu.subMenus}" th:text="${submenu.name}" th:onclick="'getArticleByMenuId('+${submenu.id}+')'" class="tabMenu"></li></a>
+            </div>
+        </div>
+        <!--article list start-->
+        <div class="article-list-container" th:fragment="artCont">
+            <div class="article-list" th:each="article:${articles}">
+                <div class="article-list-left">
+                    <div class="article-title1" th:if="${article.originType}==0"><a th:href="@{'/show?id='+${article.id}}" th:text="${article.title}"></a></div>
+                    <div class="article-title2" th:if="${article.originType}==1"><a th:href="@{'/show?id='+${article.id}}" th:text="${article.title}"></a></div>
+                    <div class="article-info">
+                        <div class="article-description">
+                            <div class="desc" th:text="${article.desc}"></div>
+                            <div class="skill-stack">
+                                <div><li>技术栈:</li><li th:each="tag:${article.tags}" th:text="${tag}"></li></div>
+                            </div>
+                        </div>
+                        <div class="article-info-space">
+                            <dd>字数</dd>
+                            <dd th:text="${article.wordCount}"></dd>
+                        </div>     
+                        <div class="article-info-space">
+                            <dd>浏览数</dd>
+                            <dd th:text="${article.hits}"></dd>
+                        </div>         
+                        <div class="article-info-space">
+                            <dd>时间</dd>
+                            <dd th:text="${#dates.format(article.updateTime, 'yyyy-MM-dd')}"></dd>
+                        </div>
+                    </div>
+                </div>
+                <div class="article-list-right" th:text="${article.status} == 0 ?'已完毕':'连载中'"></div>
+            </div>
+
+            <div class="page-componet"></div>
+            <div th:if="${articles} == null" class="noCont">
+                没有记录~~作者比较忙！
+            </div>
+        </div>
+        <!--article list end-->
+        <!--footer start-->
+        <div th:replace="footer"></div>
+        <!--footer end-->
+    </div>
+</body>
+<script>
+    $(".tabMenu").click(function(event){
+        $(".tabMenu").removeClass('type_active');
+        $(this).addClass('type_active');
+    });
+    function getArticleByMenuId(val){
+        $.ajax({
+             url : "/getArticleByMenuId",
+             type : 'get',
+             data : {id:val,pageId:0},
+             success : function(result) {
+             if (result != null && result.length > 0) {
+                if (result.indexOf("<li") == -1){
+                    result = '<div class="noCont">没有记录~~作者比较忙！</div>';
+                }
+                $('.article-list-container').html(result);
+             }
+             else {
+                 alert("网站出现异常1");
+             }
+
+        },
+            error : function(errorMsg) {
+                //请求失败时执行该函数
+                console.log(errorMsg);
+            }
+        })
+    }
+
+</script>
+</html>
