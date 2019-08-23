@@ -36,7 +36,7 @@ public class MenuServiceImpl implements IMenuService {
                 FrontMenuInfo subFrontMenu = new FrontMenuInfo();
                 subFrontMenu.setId(subMenu.getId());
                 subFrontMenu.setName(subMenu.getName());
-                subFrontMenu.setUrl("/list?id="+subFrontMenu.getId()+"&pageId=0");
+                subFrontMenu.setUrl("/list?id="+subFrontMenu.getId()+"&pageId=1");
                 subFrontMenus.add(subFrontMenu);
             }
             frontMenu.setSubMenus(subFrontMenus);

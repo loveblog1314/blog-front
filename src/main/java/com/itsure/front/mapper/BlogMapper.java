@@ -23,4 +23,7 @@ public interface BlogMapper {
 
     @Select("select * from sys_article where id = #{id}")
     Article getArticleById(int id);
+
+    @Select("select count(id) from sys_article where menu_id = #{id}")
+    Integer getArticleCountsById(int id);
 }

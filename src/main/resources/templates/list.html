@@ -13,8 +13,10 @@
     <script src="static/js/index.js"></script>
     <script src="static/js/show.js"></script>
     <script src="static/js/jquery-3.4.1.min.js"></script>
+    <script src="static/js/page.js"></script>
     <link rel="stylesheet" href="static/css/bootstrap.css">
     <link rel="stylesheet" href="static/css/index.css">
+    <link rel="stylesheet" href="static/css/page.css"/>
     <style>
         body{background: #f5f5f5}
     </style>
@@ -26,7 +28,7 @@
         <!--banner end-->
         <div class="article-menu-wapper" th:each="menu:${menus}" th:if="${menu.subMenus.size() gt 0}">
             <div class="article-menu-container">
-                <a href="javascript:void(0)"><li th:each="submenu:${menu.subMenus}" th:text="${submenu.name}" th:onclick="'getArticleByMenuId('+${submenu.id}+')'" class="tabMenu"></li></a>
+                <a th:each="submenu:${menu.subMenus}" th:href="${submenu.url}"><li  th:text="${submenu.name}" class="tabMenu"></li></a>
             </div>
         </div>
         <!--article list start-->
@@ -59,27 +61,47 @@
                 <div class="article-list-right" th:text="${article.status} == 0 ?'已完毕':'连载中'"></div>
             </div>
 
-            <div class="page-componet"></div>
             <div th:if="${articles} == null" class="noCont">
                 没有记录~~作者比较忙！
             </div>
         </div>
+        <div th:if="${articles.size()} eq 0" class="noCont">
+            没有记录~~作者比较忙！
+        </div>
+        <div th:if="${articles} != null" class="zxf_pagediv"></div>
         <!--article list end-->
         <!--footer start-->
         <div th:replace="footer"></div>
         <!--footer end-->
     </div>
 </body>
-<script>
-    $(".tabMenu").click(function(event){
-        $(".tabMenu").removeClass('type_active');
-        $(this).addClass('type_active');
+<script th:inline="javascript">
+    $(document).ready(function(){
+        id = getParam("id");
+        $(".tabMenu").each(function(e){
+           if (e == id-1){
+            $(this).addClass('type_active');
+           }
+        });
+    })
+    //翻页
+    $(".zxf_pagediv").createPage({
+        /*<![CDATA[*/
+            pageNum: [[${counts}]],
+        /*]]>*/
+        current: 1,
+        backfun: function(e) {
+            id = getParam("id");
+            pageId = e.current;
+            getArticleByMenuId(id,pageId)
+        }
     });
-    function getArticleByMenuId(val){
+
+    function getArticleByMenuId(val1,val2){
         $.ajax({
              url : "/getArticleByMenuId",
              type : 'get',
-             data : {id:val,pageId:0},
+             data : {id:val1,pageId:val2},
              success : function(result) {
              if (result != null && result.length > 0) {
                 if (result.indexOf("<li") == -1){
@@ -99,5 +121,13 @@
         })
     }
 
+    function getParam(paramName) {
+        paramValue = "", isFound = !1;
+        if (this.location.search.indexOf("?") == 0 && this.location.search.indexOf("=") > 1) {
+            arrSource = unescape(this.location.search).substring(1, this.location.search.length).split("&"), i = 0;
+            while (i < arrSource.length && !isFound) arrSource[i].indexOf("=") > 0 && arrSource[i].split("=")[0].toLowerCase() == paramName.toLowerCase() && (paramValue = arrSource[i].split("=")[1], isFound = !0), i++
+        }
+        return paramValue == "" && (paramValue = null), paramValue
+    }
 </script>
 </html>

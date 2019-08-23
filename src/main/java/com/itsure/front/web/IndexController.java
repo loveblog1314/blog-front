@@ -27,7 +27,7 @@ public class IndexController implements ErrorController {
     public String getIndex(ModelMap modelMap){
         List<FrontMenuInfo> menus = menuService.getMenus(34);
         modelMap.addAttribute("menus", menus);
-        ResultInfo<List<Article>> articlesResult = iArticleService.getArticleByTimeDesc(1,0,10);
+        ResultInfo<List<Article>> articlesResult = iArticleService.getArticleByTimeDesc(1,1,10);
         if (articlesResult.getCode().equals("0")) {
             modelMap.addAttribute("articles", articlesResult.getData());
         } else {
@@ -38,7 +38,7 @@ public class IndexController implements ErrorController {
 
     @RequestMapping("/getArticle")
     public String getArticle(ModelMap modelMap,@RequestParam("id") int id){
-        ResultInfo<List<Article>> articlesResult = iArticleService.getArticleByTimeDesc(id,0,10);
+        ResultInfo<List<Article>> articlesResult = iArticleService.getArticleByTimeDesc(id,1,10);
         if (articlesResult.getCode().equals("0")) {
             modelMap.addAttribute("articles", articlesResult.getData());
         } else {
@@ -66,6 +66,7 @@ public class IndexController implements ErrorController {
         ResultInfo<List<Article>> articlesResult = iArticleService.getArticleByTimeDesc(menuId, pageId,10);
         if (articlesResult.getCode().equals("0")) {
             modelMap.addAttribute("articles", articlesResult.getData());
+            modelMap.addAttribute("counts", articlesResult.getCount());
         } else {
             modelMap.addAttribute("error", articlesResult);
         }
@@ -74,10 +75,11 @@ public class IndexController implements ErrorController {
 
     @RequestMapping("/getArticleByMenuId")
     public String getArticleListByMenuId(ModelMap modelMap, @RequestParam("id") int menuId, @RequestParam("pageId") int pageId){
-        System.out.println(menuId+"menuid");
+        System.out.println(menuId+"menuid"+pageId+"pageId");
         ResultInfo<List<Article>> articlesResult = iArticleService.getArticleByTimeDesc(menuId, pageId,10);
         if (articlesResult.getCode().equals("0")) {
             modelMap.addAttribute("articles", articlesResult.getData());
+            modelMap.addAttribute("counts", articlesResult.getCount());
         } else {
             modelMap.addAttribute("error", articlesResult);
         }

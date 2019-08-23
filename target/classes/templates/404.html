@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>itsure博客-404</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="description" content="">
+    <link rel="icon" type="image/x-icon" href="static/img/favicon.ico">
+    <link rel="stylesheet" href="static/css/font-awesome.min.css">
+    <script src="static/js/index.js"></script>
+    <script src="static/js/show.js"></script>
+    <script src="static/js/jquery-3.4.1.min.js"></script>
+    <link rel="stylesheet" href="static/css/bootstrap.css">
+    <link rel="stylesheet" href="static/css/index.css">
+    <style>
+        body{background: #f5f5f5}
+    </style>
+</head>
+<body>
+    <div>
+        <!--menu start-->
+        <div th:replace="header"></div>
+        <!--banner end-->  
+        <div class="error-404">
+            <li>ERROR 404!</li>
+            <li>未找到该页面</li>
+            <li>可以联系博主</li>
+        </div>
+        <!--footer start-->
+        <div th:replace="footer"></div>
+        <!--footer end-->
+    </div>
+</body>
+</html>

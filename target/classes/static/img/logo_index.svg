@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid" width="150" height="60" viewBox="0 0 150 60">
+  <defs>
+    <style>
+      .cls-1, .cls-2 {
+        font-size: 34px;
+      }
+
+      .cls-2 {
+        fill: #5370e5;
+        font-family: "FZZhengHeiS-EL-GB";
+      }
+    </style>
+  </defs>
+  <text x="39" y="41" class="cls-1"><tspan class="cls-2">itsure</tspan></text>
+</svg>

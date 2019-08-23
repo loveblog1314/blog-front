@@ -17,15 +17,21 @@ public class ArticleServiceImpl implements IArticleService {
     @Override
     public ResultInfo<List<Article>> getArticleByTimeDesc(int menuId, int index, int limit) {
         List<Article> result = null;
+        ResultInfo resultInfo = null;
         try {
+            index = (index - 1) * limit;
            result = blogMapper.getArticleByTimeDesc(menuId,index,limit);
+           int counts = blogMapper.getArticleCountsById(menuId);
             for (Article article : result) {
                 article.split(article.getSkillStack());
             }
+            resultInfo = new ResultInfo(result);
+            resultInfo.setCount((int)(counts/limit) + 1);
         } catch (Exception e) {
+            e.printStackTrace();
             return new ResultInfo<>(RequestCodeEnum.DB_EXCEPTION.getCode(),RequestCodeEnum.DB_EXCEPTION.getMsg());
         }
-        return new ResultInfo<>(result);
+        return resultInfo;
     }
 
     @Override
@@ -38,4 +44,5 @@ public class ArticleServiceImpl implements IArticleService {
         }
         return new ResultInfo<>(result);
     }
+
 }

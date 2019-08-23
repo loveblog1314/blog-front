@@ -8,4 +8,5 @@ public interface IArticleService {
     ResultInfo<List<Article>> getArticleByTimeDesc(int menuId, int index, int limit);
 
     ResultInfo<Article> getArticleById(int id);
+
 }

@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:http="http://www.w3.org/1999/xhtml">
+    <!--footer start-->
+    <div class="footer" th:fragment="footer">
+        <div class="menu">
+            <li th:each="menu:${menus}"><a th:href="${menu.url}" th:text="${menu.name}" class="m"></a></li>
+        </div>
+        <div class="copyright">
+            Copyright © 2019 itsure. All Rights Reserved.   email:itsure@aliyun.com
+        </div>
+    </div>
+    <!--footer end-->
+</html>
